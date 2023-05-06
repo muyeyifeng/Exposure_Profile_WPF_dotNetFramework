@@ -1,0 +1,98 @@
+﻿<Window x:Class="Exposure_Profile_WPF_dotNetFramework.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="曝光文件配置" Height="280" Width="400" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,0">
+        <TabControl Margin="0,0,0,0" Grid.ColumnSpan="2">
+            <TabItem x:Name="General" Header="基本参数配置">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="SelectFile" Content="选择文件" HorizontalAlignment="Left" Margin="23,14,0,0" VerticalAlignment="Top" Height="20" Click="SelectFile_Click"/>
+                    <Label Content="支持层厚" HorizontalAlignment="Left" Margin="20,44,0,0" Height="26" VerticalAlignment="Top"/>
+                    <Label Content="使用刮刀" HorizontalAlignment="Left" Margin="22,105,0,0" VerticalAlignment="Top"/>
+                    <Label Content="中心波长" HorizontalAlignment="Left" Margin="22,131,0,0" VerticalAlignment="Top"/>
+                    <Label Content="波长容差" HorizontalAlignment="Left" Margin="22,156,0,0" VerticalAlignment="Top"/>
+                    <Label Content="消耗体积" HorizontalAlignment="Left" Margin="22,181,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="FilePath" Margin="85,15,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Height="20" HorizontalAlignment="Left" Width="285" IsReadOnly="True" ScrollViewer.CanContentScroll="True"/>
+                    <ListBox x:Name="LayerThickness" Margin="85,45,0,0" Height="57" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
+                    <CheckBox x:Name="WiperNeeded" Content="" HorizontalAlignment="Left" Margin="87,109,0,0" VerticalAlignment="Top" Checked="WiperNeeded_ChangeCheck" Unchecked="WiperNeeded_ChangeCheck"/>
+                    <TextBox x:Name="WaveLength" HorizontalAlignment="Left" Margin="87,134,0,0" TextWrapping="Wrap" Text="405 nm" VerticalAlignment="Top" Width="120" Height="20" IsReadOnly="True"/>
+                    <TextBox x:Name="Tolerance" HorizontalAlignment="Left" Margin="87,159,0,0" TextWrapping="Wrap" Text="20 nm" VerticalAlignment="Top" Width="120" Height="20" IsReadOnly="True"/>
+                    <TextBox x:Name="MaterialUsed" HorizontalAlignment="Left" Margin="87,184,0,0" TextWrapping="Wrap" Text="1 ml/pixel" VerticalAlignment="Top" Width="120" Height="20" IsReadOnly="True"/>
+                    <Button x:Name="AddNew" Content="新增" Margin="272,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="28" Click="AddNew_Click"/>
+                    <Button x:Name="DeleteSelect" Content="删除选中" HorizontalAlignment="Left" Margin="215,69,0,0" VerticalAlignment="Top" Click="DeleteSelect_Click"/>
+                    <TextBox x:Name="NewItem" HorizontalAlignment="Left" Margin="215,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52" Height="20" TextChanged="NewItemContentChanged" />
+                    <Button x:Name="SaveFile" Content="保存" HorizontalAlignment="Left" Margin="272,185,0,0" VerticalAlignment="Top" Width="45" Click="SaveFile_Click"/>
+                    <Button x:Name="SaveAsNewFile" Content="另存为" HorizontalAlignment="Left" Margin="325,185,0,0" VerticalAlignment="Top" Width="45" Click="SaveAsNewFile_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Layer" Header="层参数配置" IsEnabled="False" HorizontalAlignment="Center" Width="72" Height="19" VerticalAlignment="Top">
+                <Grid Background="#FFE5E5E5">
+                    <ComboBox x:Name="LayerThicknessComboBox" HorizontalAlignment="Left" Margin="59,12,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged">
+                    </ComboBox>
+                    <Label Content="建议铺料厚度" HorizontalAlignment="Left" Margin="20,40,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="MaterialThickness" HorizontalAlignment="Left" Margin="107,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="72" Height="20" IsReadOnly="True"/>
+                    <Label Content="层厚" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="首层参数" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top"/>
+                    <Label Content="厚度:" HorizontalAlignment="Left" Margin="30,90,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="FLThickness" HorizontalAlignment="Left" Margin="67,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" Height="20"/>
+                    <Label Content="um" HorizontalAlignment="Left" Margin="100,90,0,0" VerticalAlignment="Top"/>
+                    <Label Content="um" HorizontalAlignment="Left" Margin="179,40,0,0" VerticalAlignment="Top"/>
+                    <Label Content="曝光时间:" HorizontalAlignment="Left" Margin="135,90,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="FLExposureTime" HorizontalAlignment="Left" Margin="195,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" Height="20"/>
+                    <Label Content="s" HorizontalAlignment="Left" Margin="230,90,0,0" VerticalAlignment="Top"/>
+                    <Label Content="光强:" HorizontalAlignment="Left" Margin="245,90,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="FLExposurePower" HorizontalAlignment="Left" Margin="280,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" Height="20"/>
+                    <Label Content="mW/cm2" HorizontalAlignment="Left" Margin="315,90,0,0" VerticalAlignment="Top"/>
+                    <Label Content="底层参数" HorizontalAlignment="Left" Margin="20,115,0,0" VerticalAlignment="Top"/>
+                    <Label Content="曝光时间:" HorizontalAlignment="Left" Margin="30,140,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="BLExposureTime" HorizontalAlignment="Left" Margin="91,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" Height="20"/>
+                    <Label Content="s" HorizontalAlignment="Left" Margin="127,140,0,0" VerticalAlignment="Top"/>
+                    <Label Content="光强:" HorizontalAlignment="Left" Margin="152,140,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="BLExposurePower" HorizontalAlignment="Left" Margin="190,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" Height="20"/>
+                    <Label Content="mW/cm2" HorizontalAlignment="Left" Margin="226,140,0,0" VerticalAlignment="Top"/>
+                    <Label Content="普通层参数" HorizontalAlignment="Left" Margin="20,165,0,0" VerticalAlignment="Top"/>
+                    <Label Content="曝光时间:" HorizontalAlignment="Left" Margin="30,190,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="NLExposureTime" HorizontalAlignment="Left" Margin="90,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" Height="20"/>
+                    <Label Content="s" HorizontalAlignment="Left" Margin="127,190,0,0" VerticalAlignment="Top"/>
+                    <Label Content="光强:" HorizontalAlignment="Left" Margin="152,190,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="NLExposurePower" HorizontalAlignment="Left" Margin="190,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="36" Height="20"/>
+                    <Label Content="mW/cm2" HorizontalAlignment="Left" Margin="226,190,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="SaveThisLayer" Content="保存层厚参数" HorizontalAlignment="Left" Margin="300,190,0,0" VerticalAlignment="Top" Click="SaveThisLayer_Click"/>
+                    <CheckBox x:Name="AdvancedExposure" Content="高级曝光设置" HorizontalAlignment="Left" Margin="280,15,0,0" VerticalAlignment="Top" Checked="AdvancedExposure_Checked"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="NetDataBase" Header="网络数据库">
+                <Grid Background="#FFE5E5E5">
+                    <Button x:Name="LoadNetData" Content="载入联网数据库" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="LoadNetData_Click"/>
+                    <Button x:Name="Upload" Content="上传当前文件" HorizontalAlignment="Left" Margin="290,10,0,0" VerticalAlignment="Top" Click="Upload_Click"/>
+                    <DataGrid x:Name="NetDataGrid" Margin="10,34,10,10" IsEnabled="False" Visibility="Visible"  CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" AutoGenerateColumns="false">
+                        <DataGrid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Name="MenuItem1" Header="载入" Click="LoadDataToLocal"/>
+                                <MenuItem Name="MenuItem2" Header="下载"  Click="Download_Click"/>
+                                <MenuItem Name="MenuItem3" Header="删除"  Click="DeleteNetData"/>
+                            </ContextMenu>
+                        </DataGrid.ContextMenu>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="*"  Header="树脂名" Binding="{Binding Name}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="*"  Header="层厚"  Binding="{Binding SupportLayer}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="*"  Header="上传时间" Binding="{Binding UploadTime}" IsReadOnly="True"/>
+                            <DataGridTextColumn Width="*"  Header="上传者" Binding="{Binding Holder}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox x:Name="Holder" HorizontalAlignment="Left" Margin="103,11,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="112"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="软件信息">
+                <Grid Background="#FFE5E5E5">
+                    <Grid>
+                        <Label Name="Information" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
